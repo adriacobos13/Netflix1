@@ -14,6 +14,7 @@ public class RestConstants {
 	public static final String RESOURCE_NUMBER = "/{number}";
 	
 	public static final String PARAMETER_CATEGORY = "categories";
+	public static final String PARAMETER_TV_SHOW = "tv-shows";
 
 	private RestConstants() {
 		throw new IllegalStateException("Utility Class");
