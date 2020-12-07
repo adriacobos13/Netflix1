@@ -2,6 +2,7 @@ package com.everis.d4i.tutorial.entities;
 
 import java.io.Serializable;
 import java.time.Year;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -43,7 +45,9 @@ public class TvShow implements Serializable {
 	private byte recommendedAge;
 
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "CATEGORY_ID", nullable = false)
+	@JoinTable(name="TV_SHOWS_CATEGORIES",
+	joinColumns=@JoinColumn(name = "TV_SHOW_ID", nullable = false),
+	inverseJoinColumns=@JoinColumn(name="CATEGORY_ID"))
 	private List<Category> categories;
 
 	@Column(name = "ADVERTISING", nullable = true)
@@ -100,7 +104,7 @@ public class TvShow implements Serializable {
 		this.recommendedAge = recommendedAge;
 	}
 
-	public List<Category> getCategory() {
+	public List<Category> getCategories() {
 		return categories;
 	}
 

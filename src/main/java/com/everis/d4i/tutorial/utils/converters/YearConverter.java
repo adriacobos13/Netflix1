@@ -10,7 +10,7 @@ import javax.persistence.Converter;
 public class YearConverter implements AttributeConverter<Year, Short> {
 
 	Logger log = Logger.getLogger(YearConverter.class.getSimpleName());
-
+	
 	@Override
 	public Short convertToDatabaseColumn(Year attribute) {
 		short year = (short) attribute.getValue();
@@ -25,3 +25,4 @@ public class YearConverter implements AttributeConverter<Year, Short> {
 		return year;
 	}
 }
+

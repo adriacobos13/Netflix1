@@ -1,5 +1,6 @@
 package com.everis.d4i.tutorial.services.impl;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,7 +17,6 @@ import com.everis.d4i.tutorial.entities.TvShow;
 import com.everis.d4i.tutorial.exceptions.InternalServerErrorException;
 import com.everis.d4i.tutorial.exceptions.NetflixException;
 import com.everis.d4i.tutorial.exceptions.NotFoundException;
-import com.everis.d4i.tutorial.json.CategoryRest;
 import com.everis.d4i.tutorial.json.TvShowRest;
 import com.everis.d4i.tutorial.repositories.TvShowRepository;
 import com.everis.d4i.tutorial.services.TvShowService;
@@ -33,12 +33,12 @@ public class TvShowServiceImpl implements TvShowService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(TvShowServiceImpl.class);
 
 	@Override
-	public List<TvShowRest> getTvShowsByCategory(Long categoryId) throws NetflixException {
+    public List<TvShowRest> getTvShowsByCategory(Long categoryId) throws NetflixException {
 
-		return tvShowRepository.findByCategoryId(categoryId).stream()
-				.map(tvShow -> modelMapper.map(tvShow, TvShowRest.class)).collect(Collectors.toList());
+        return tvShowRepository.findByCategoriesId(categoryId).stream()
+                .map(tvShow -> modelMapper.map(tvShow, TvShowRest.class)).collect(Collectors.toList());
 
-	}
+    }
 
 	@Override
 	public TvShowRest getTvShowById(Long id) throws NetflixException {

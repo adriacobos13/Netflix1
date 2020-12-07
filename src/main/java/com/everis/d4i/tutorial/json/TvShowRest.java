@@ -68,7 +68,7 @@ public class TvShowRest implements Serializable {
 		this.recommendedAge = recommendedAge;
 	}
 
-	public List<CategoryRest> getCategory() {
+	public List<CategoryRest> getCategories() {
 		return categories;
 	}
 

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.everis.d4i.tutorial.controllers.TvShowController;
 import com.everis.d4i.tutorial.exceptions.NetflixException;
-import com.everis.d4i.tutorial.json.CategoryRest;
 import com.everis.d4i.tutorial.json.TvShowRest;
 import com.everis.d4i.tutorial.responses.NetflixResponse;
 import com.everis.d4i.tutorial.services.TvShowService;

@@ -29,7 +29,8 @@ public class CategoryServiceImpl implements CategoryService {
 
 	public List<CategoryRest> getCategories() throws NetflixException {
 
-		return categoryRepository.findAll().stream().map(category -> modelMapper.map(category, CategoryRest.class))
+		return categoryRepository.findAll().stream()
+				.map(category -> modelMapper.map(category, CategoryRest.class))
 				.collect(Collectors.toList());
 
 	}
