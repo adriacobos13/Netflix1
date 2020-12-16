@@ -35,9 +35,11 @@ public class CategoryServiceImpl implements CategoryService {
 
 	}
 
+	@Override
 	public CategoryRest createCategories(final CategoryRest categoryRest) throws NetflixException {
 		Category category = new Category();
 		category.setName(categoryRest.getName());
+		category.setId(categoryRest.getId());
 		try {
 			category = categoryRepository.save(category);
 		} catch (final Exception e) {

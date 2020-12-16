@@ -14,5 +14,8 @@ public interface TvShowController {
 	NetflixResponse<TvShowRest> getTvShowById(Long id) throws NetflixException;
 	
 	NetflixResponse<TvShowRest> createTvShow(TvShowRest tvShowRest) throws NetflixException;
+	
+	NetflixResponse<TvShowRest> updateTvShow(TvShowRest tvShowRest, Long tvShowId) throws NetflixException;
 
+	NetflixResponse<TvShowRest> deleteTvShow(Long id) throws NetflixException;
 }
