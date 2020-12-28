@@ -10,6 +10,8 @@ import com.everis.d4i.tutorial.responses.NetflixResponse;
 public interface TvShowController {
 
 	NetflixResponse<List<TvShowRest>> getTvShowsByCategory(Long categoryId) throws NetflixException;
+	
+	NetflixResponse<List<TvShowRest>> getTvShowsByActor(Long actorId) throws NetflixException;
 
 	NetflixResponse<TvShowRest> getTvShowById(Long id) throws NetflixException;
 	

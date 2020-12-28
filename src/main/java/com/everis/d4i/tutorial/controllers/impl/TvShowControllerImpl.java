@@ -43,6 +43,15 @@ public class TvShowControllerImpl implements TvShowController {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
 				tvShowService.getTvShowsByCategory(categoryId));
 	}
+	
+	@Override
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping(value="/actor", produces = MediaType.APPLICATION_JSON_VALUE)
+	public NetflixResponse<List<TvShowRest>> getTvShowsByActor(@RequestParam Long actorId)
+			throws NetflixException {
+		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
+				tvShowService.getTvShowsByActor(actorId));
+	}
 
 	@Override
 	@ResponseStatus(HttpStatus.OK)
@@ -51,6 +60,8 @@ public class TvShowControllerImpl implements TvShowController {
 		return new NetflixResponse<>(CommonConstants.SUCCESS, String.valueOf(HttpStatus.OK), CommonConstants.OK,
 				tvShowService.getTvShowById(id));
 	}
+	
+	
 
 	@Override
 	@ResponseStatus(HttpStatus.OK)

@@ -14,12 +14,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.everis.d4i.tutorial.entities.Category;
+import com.everis.d4i.tutorial.entities.Chapter;
+import com.everis.d4i.tutorial.entities.Season;
 import com.everis.d4i.tutorial.entities.TvShow;
 import com.everis.d4i.tutorial.exceptions.InternalServerErrorException;
 import com.everis.d4i.tutorial.exceptions.NetflixException;
 import com.everis.d4i.tutorial.exceptions.NotFoundException;
 import com.everis.d4i.tutorial.json.CategoryRest;
 import com.everis.d4i.tutorial.json.TvShowRest;
+import com.everis.d4i.tutorial.repositories.ActorRepository;
+import com.everis.d4i.tutorial.repositories.ChapterRepository;
 import com.everis.d4i.tutorial.repositories.TvShowRepository;
 import com.everis.d4i.tutorial.services.TvShowService;
 import com.everis.d4i.tutorial.utils.constants.ExceptionConstants;
@@ -29,6 +33,12 @@ public class TvShowServiceImpl implements TvShowService {
 
 	@Autowired
 	private TvShowRepository tvShowRepository;
+	
+	@Autowired
+	private ChapterRepository chapterRepository;
+	
+	@Autowired
+	private ActorRepository actorRepository;
 
 	private ModelMapper modelMapper = new ModelMapper();
 	
@@ -41,6 +51,31 @@ public class TvShowServiceImpl implements TvShowService {
                 .map(tvShow -> modelMapper.map(tvShow, TvShowRest.class)).collect(Collectors.toList());
 
     }
+	
+	@Override
+    public List<TvShowRest> getTvShowsByActor(Long actorId) throws NetflixException {
+		
+		List<Chapter> chapters= chapterRepository.findByActorsId(actorId);
+		List<Season> seasonsRep = new ArrayList<>();
+		
+		for (Chapter chapter:chapters) {
+			seasonsRep.add(chapter.getSeason());
+		}
+		List<Season> seasons = seasonsRep.stream().distinct().collect(Collectors.toList());
+		List<TvShow> tvShowRep = new ArrayList<>();
+		for (Season season:seasons) {
+			tvShowRep.add(season.getTvShow());
+		}
+		List<TvShow> tvShows = tvShowRep.stream().distinct().collect(Collectors.toList());
+		
+
+        return tvShows.stream()
+                .map(tvShow -> modelMapper.map(tvShow, TvShowRest.class)).collect(Collectors.toList());
+
+    }
+	
+	
+	
 
 	@Override
 	public TvShowRest getTvShowById(Long id) throws NetflixException {
@@ -75,7 +110,7 @@ public class TvShowServiceImpl implements TvShowService {
 			LOGGER.error(ExceptionConstants.INTERNAL_SERVER_ERROR, e);
 			throw new InternalServerErrorException(ExceptionConstants.INTERNAL_SERVER_ERROR);
 		}
-		return modelMapper.map(tvShow, TvShowRest.class);
+		return tvShowRest;
 	}
 	
 	@Override

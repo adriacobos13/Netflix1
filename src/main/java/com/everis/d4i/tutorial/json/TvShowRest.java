@@ -19,7 +19,8 @@ public class TvShowRest implements Serializable {
 	private byte recommendedAge;
 	private List<CategoryRest> categories;
 	private String advertising;
-
+	
+	
 	public Long getId() {
 		return id;
 	}
